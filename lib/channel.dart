@@ -1,12 +1,14 @@
 
-import 'package:api/controller/ponto_atendimento_controller.dart';
-import 'package:api/controller/servico_controller.dart';
+import 'package:api/controller/user_controller.dart';
+import 'package:aqueduct/managed_auth.dart';
 
 import 'api.dart';
 
 class ApiChannel extends ApplicationChannel {
 
   ManagedContext context;
+
+  AuthServer authServer;
 
   @override
   Future prepare() async {
@@ -24,6 +26,9 @@ class ApiChannel extends ApplicationChannel {
 
       context = ManagedContext(dataModel, pg);
 
+    final authStorage = ManagedAuthDelegate<User>(context);
+    authServer = AuthServer(authStorage);
+
   }
 
   @override
@@ -38,6 +43,10 @@ class ApiChannel extends ApplicationChannel {
     router
       .route("/servicos/[:id]")
       .link(() => ServicoController(context));
+
+    router
+      .route("/users/[:id]")
+      .link(() => UserController(context, authServer));
 
     return router;
   }

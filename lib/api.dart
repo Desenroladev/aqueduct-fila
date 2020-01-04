@@ -15,3 +15,5 @@ export 'controller/servico_controller.dart';
 
 export 'model/ponto_atendimento.dart';
 export 'model/servico.dart';
+export 'model/user.dart';
+export 'model/operador.dart';
