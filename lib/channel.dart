@@ -37,6 +37,10 @@ class ApiChannel extends ApplicationChannel {
     final router = Router();
 
     router
+      .route("/auth/token")
+      .link(() => AuthController(authServer));
+      
+    router
       .route("/pontos-atendimentos/[:id]")
       .link(() => PontoAtendimentoController(context));
 
