@@ -11,7 +11,7 @@ class _Senha {
   String numero;
 
   @Relate(#senhas)
-  User usuario;
+  Usuario usuario;
 
 }
 

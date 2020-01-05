@@ -1,16 +1,19 @@
 
 import 'package:api/api.dart';
 
-class UserController extends ResourceController {
+class UsuarioController extends ResourceController {
   
   final ManagedContext context;
   final AuthServer authServer;
 
-  UserController(this.context, this.authServer);
+  UsuarioController(this.context, this.authServer);
 
   @Operation.post()
-  Future<Response> store(@Bind.body() User user) async {
+  Future<Response> store(@Bind.body() Usuario user) async {
 
+    if(user.nome == null) {
+      return Response.badRequest(body: {"error":"O nome é obrigatório."});
+    }
     if(user.username == null || user.password == null) {
       return Response.badRequest(body: {"error": "Usuário ou senha invalido."});
     }

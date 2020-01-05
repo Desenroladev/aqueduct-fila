@@ -12,8 +12,10 @@ export 'channel.dart';
 
 export 'controller/ponto_atendimento_controller.dart';
 export 'controller/servico_controller.dart';
+export 'controller/usuario_controller.dart';
 
 export 'model/ponto_atendimento.dart';
 export 'model/servico.dart';
-export 'model/user.dart';
+export 'model/usuario.dart';
 export 'model/operador.dart';
+export 'model/senha.dart';

@@ -14,7 +14,7 @@ class _Operador {
   DateTime dataAdmissao;
 
   @Relate(#operadores)
-  User usuario;
+  Usuario usuario;
 
 }
 

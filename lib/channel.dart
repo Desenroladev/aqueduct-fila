@@ -1,5 +1,5 @@
 
-import 'package:api/controller/user_controller.dart';
+import 'package:api/controller/operador_controller.dart';
 import 'package:aqueduct/managed_auth.dart';
 
 import 'api.dart';
@@ -26,7 +26,7 @@ class ApiChannel extends ApplicationChannel {
 
       context = ManagedContext(dataModel, pg);
 
-    final authStorage = ManagedAuthDelegate<User>(context);
+    final authStorage = ManagedAuthDelegate<Usuario>(context);
     authServer = AuthServer(authStorage);
 
   }
@@ -42,18 +42,27 @@ class ApiChannel extends ApplicationChannel {
       
     router
       .route("/pontos-atendimentos/[:id]")
+      .link(() => Authorizer.bearer(authServer))
       .link(() => PontoAtendimentoController(context));
 
     router
       .route("/servicos/[:id]")
+      .link(() => Authorizer.bearer(authServer))
       .link(() => ServicoController(context));
 
     router
-      .route("/users/[:id]")
-      .link(() => UserController(context, authServer));
+      .route("/usuarios/[:id]")
+      .link(() => Authorizer.bearer(authServer))
+      .link(() => UsuarioController(context, authServer));
+
+    router
+      .route("/operadores/[:id]")
+      .link(() => Authorizer.bearer(authServer))
+      .link(() => OperadorController(context, authServer));
 
     return router;
   }
+  
 }
 
 class MyConfig extends Configuration {
